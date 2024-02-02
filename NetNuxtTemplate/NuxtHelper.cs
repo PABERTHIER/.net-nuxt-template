@@ -2,19 +2,19 @@
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 
-namespace NuxtIntegration.Helpers
+namespace NetNuxtTemplate
 {
     public static class NuxtHelper
     {
         // default port number of 'npm run dev'
-        private static readonly int Port = 3000;
+        private const int Port = 3000;
         private static readonly Uri NuxtServerUrl = new ($"http://localhost:{Port}");
 
         public static void UseNuxtDevelopmentServer(this ISpaBuilder spa)
         {
-            string argument = "dev";
-            string workingDirectory = "Nuxt";
-            string nuxtCommand = $"cd {workingDirectory} && yarn {argument}";
+            const string argument = "dev";
+            const string workingDirectory = "Nuxt";
+            const string nuxtCommand = $"cd {workingDirectory} && yarn {argument}";
 
             if (IsRunning())
             {
@@ -36,7 +36,7 @@ namespace NuxtIntegration.Helpers
                 StartInfo = processStartInfo,
             };
 
-            process.OutputDataReceived += (sender, args) =>
+            process.OutputDataReceived += (_, args) =>
             {
                 if (!string.IsNullOrEmpty(args.Data))
                 {
@@ -45,7 +45,7 @@ namespace NuxtIntegration.Helpers
             };
 
             process.EnableRaisingEvents = true;
-            process.Exited += (sender, args) =>
+            process.Exited += (_, _) =>
             {
                 Console.WriteLine("Nuxt development server process has exited.");
             };
@@ -54,7 +54,7 @@ namespace NuxtIntegration.Helpers
             process.BeginOutputReadLine();
 
             // Ensure that the process is stopped when the ASP.NET Core app is stopped
-            AppDomain.CurrentDomain.ProcessExit += (sender, args) =>
+            AppDomain.CurrentDomain.ProcessExit += (_, _) =>
             {
                 if (!process.HasExited)
                 {

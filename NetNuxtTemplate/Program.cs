@@ -1,5 +1,5 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.Services.AddWebUIServices();
+builder.Services.AddWebUiServices();
 
 WebApplication app = builder.Build();
 

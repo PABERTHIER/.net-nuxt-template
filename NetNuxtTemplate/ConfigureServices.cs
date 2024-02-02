@@ -1,16 +1,12 @@
-﻿using NuxtIntegration.Helpers;
-
-namespace NetNuxtTemplate;
+﻿namespace NetNuxtTemplate;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddWebUIServices(this IServiceCollection services)
+    public static void AddWebUiServices(this IServiceCollection services)
     {
         services.AddSpaStaticFiles(options => options.RootPath = "Nuxt/dist");
         services.AddControllers();
         // Register your services here.
-
-        return services;
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
